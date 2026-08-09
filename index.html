@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="" />
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors" />
+  <meta name="generator" content="Astro v5.13.2" />
+  <title>私の好きな伊坂幸太郎の作品</title>
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/carousel/" />
+  <script src="../assets/js/color-modes.js"></script>
+  <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <meta name="theme-color" content="#712cf9" />
+  <link href="carousel.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+
+    .b-example-divider {
+      width: 100%;
+      height: 3rem;
+      background-color: #0000001a;
+      border: solid rgba(0, 0, 0, 0.15);
+      border-width: 1px 0;
+      box-shadow:
+        inset 0 0.5em 1.5em #0000001a,
+        inset 0 0.125em 0.5em #00000026;
+    }
+
+    .b-example-vr {
+      flex-shrink: 0;
+      width: 1.5rem;
+      height: 100vh;
+    }
+
+    #charm-points,
+    #featurette-1,
+    #featurette-2,
+    #featurette-3 {
+      scroll-margin-top: 80px;
+    }
+
+    .bi {
+      vertical-align: -0.125em;
+      fill: currentColor;
+    }
+
+    .nav-scroller {
+      position: relative;
+      z-index: 2;
+      height: 2.75rem;
+      overflow-y: hidden;
+    }
+
+    .nav-scroller .nav {
+      display: flex;
+      flex-wrap: nowrap;
+      padding-bottom: 1rem;
+      margin-top: -1px;
+      overflow-x: auto;
+      text-align: center;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .btn-bd-primary {
+      --bd-violet-bg: #712cf9;
+      --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+      --bs-btn-font-weight: 600;
+      --bs-btn-color: var(--bs-white);
+      --bs-btn-bg: var(--bd-violet-bg);
+      --bs-btn-border-color: var(--bd-violet-bg);
+      --bs-btn-hover-color: var(--bs-white);
+      --bs-btn-hover-bg: #6528e0;
+      --bs-btn-hover-border-color: #6528e0;
+      --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+      --bs-btn-active-color: var(--bs-btn-hover-color);
+      --bs-btn-active-bg: #5a23c8;
+      --bs-btn-active-border-color: #5a23c8;
+    }
+
+    .bd-mode-toggle {
+      z-index: 1500;
+    }
+
+    .bd-mode-toggle .bi {
+      width: 1em;
+      height: 1em;
+    }
+
+    .bd-mode-toggle .dropdown-menu .active .bi {
+      display: block !important;
+    }
+  </style>
+</head>
+
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+    <symbol id="check2" viewBox="0 0 16 16">
+      <path
+        d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z">
+      </path>
+    </symbol>
+    <symbol id="circle-half" viewBox="0 0 16 16">
+      <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"></path>
+    </symbol>
+    <symbol id="moon-stars-fill" viewBox="0 0 16 16">
+      <path
+        d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z">
+      </path>
+      <path
+        d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z">
+      </path>
+    </symbol>
+    <symbol id="sun-fill" viewBox="0 0 16 16">
+      <path
+        d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z">
+      </path>
+    </symbol>
+  </svg>
+  <div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
+    <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center" id="bd-theme" type="button"
+      aria-expanded="false" data-bs-toggle="dropdown" aria-label="Toggle theme (auto)">
+      <svg class="bi my-1 theme-icon-active" aria-hidden="true">
+        <use href="#circle-half"></use>
+      </svg>
+      <span class="visually-hidden" id="bd-theme-text">Toggle theme</span>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="bd-theme-text">
+      <li>
+        <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light"
+          aria-pressed="false">
+          <svg class="bi me-2 opacity-50" aria-hidden="true">
+            <use href="#sun-fill"></use>
+          </svg>
+          Light
+          <svg class="bi ms-auto d-none" aria-hidden="true">
+            <use href="#check2"></use>
+          </svg>
+        </button>
+      </li>
+      <li>
+        <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark"
+          aria-pressed="false">
+          <svg class="bi me-2 opacity-50" aria-hidden="true">
+            <use href="#moon-stars-fill"></use>
+          </svg>
+          Dark
+          <svg class="bi ms-auto d-none" aria-hidden="true">
+            <use href="#check2"></use>
+          </svg>
+        </button>
+      </li>
+      <li>
+        <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto"
+          aria-pressed="true">
+          <svg class="bi me-2 opacity-50" aria-hidden="true">
+            <use href="#circle-half"></use>
+          </svg>
+          Auto
+          <svg class="bi ms-auto d-none" aria-hidden="true">
+            <use href="#check2"></use>
+          </svg>
+        </button>
+      </li>
+    </ul>
+  </div>
+  <header data-bs-theme="dark">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          私の好きな伊坂幸太郎の作品 &middot; <strong>学籍番号: 38414097</strong>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+          aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">トップ</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#featurette-1">ランキング</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#charm-points">伊坂作品の魅力</a>
+            </li>
+          </ul>
+          <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+            <button class="btn btn-outline-success" type="submit">
+              Search
+            </button>
+          </form>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true"
+          aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <svg aria-hidden="true" class="bd-placeholder-img" height="100%" preserveAspectRatio="xMidYMid slice"
+            width="100%" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100%" height="100%" fill="#2b2b2b"></rect>
+          </svg>
+          <div class="container">
+            <div class="carousel-caption d-flex align-items-center justify-content-around text-start"
+              style="bottom: 10%; top: 10%;">
+              <div style="max-width: 50%;">
+                <h1>
+                  <span class="badge text-bg-warning text-dark mb-2 fs-5">第1位</span><br>
+                  ゴールデンスランバー
+                </h1>
+                <p class="opacity-75">
+                  「人間の最大の武器は、習慣と信頼だ。」<br>
+                  首相暗殺の濡れ衣を着せられた男の、絶望と希望の逃亡劇！
+                </p>
+                <p>
+                  <a class="btn btn-lg btn-primary" href="#featurette-1">解説を読む</a>
+                </p>
+              </div>
+              <div class="text-center">
+                <img src="images/goldenslumber.jpg" alt="ゴールデンスランバー 表紙" class="img-fluid"
+                  style="height: 400px; box-shadow: 0 10px 20px rgba(0,0,0,0.5);">
+                <p class="mt-2 mb-0" style="font-size: 0.75rem; color: #ccc;">
+                  伊坂幸太郎『ゴールデンスランバー』（新潮文庫刊）
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <svg aria-hidden="true" class="bd-placeholder-img" height="100%" preserveAspectRatio="xMidYMid slice"
+            width="100%" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100%" height="100%" fill="#2b2b2b"></rect>
+          </svg>
+          <div class="container">
+            <div class="carousel-caption d-flex align-items-center justify-content-around text-start"
+              style="bottom: 10%; top: 10%;">
+              <div style="max-width: 50%;">
+                <h1>
+                  <span class="badge text-bg-secondary mb-2 fs-5">第2位</span><br>
+                  砂漠
+                </h1>
+                <p class="opacity-75">
+                  「砂漠に雪を降らすことだって、余裕でできるんですよ。」<br>
+                  個性豊かな大学生5人が織りなす、奇跡のような青春ミステリー。
+                </p>
+                <p>
+                  <a class="btn btn-lg btn-primary" href="#featurette-2">解説を読む</a>
+                </p>
+              </div>
+              <div class="text-center">
+                <img src="images/sabaku.jpg" alt="砂漠 表紙" class="img-fluid"
+                  style="height: 400px; box-shadow: 0 10px 20px rgba(0,0,0,0.5);">
+                <p class="mt-2 mb-0" style="font-size: 0.75rem; color: #ccc;">
+                  伊坂幸太郎『砂漠』（新潮文庫刊）
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <svg aria-hidden="true" class="bd-placeholder-img" height="100%" preserveAspectRatio="xMidYMid slice"
+            width="100%" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100%" height="100%" fill="#2b2b2b"></rect>
+          </svg>
+          <div class="container">
+            <div class="carousel-caption d-flex align-items-center justify-content-around text-start"
+              style="bottom: 10%; top: 10%;">
+              <div style="max-width: 50%;">
+                <h1>
+                  <span class="badge mb-2 fs-5" style="background-color: #cd7f32; color: white;">第3位</span><br>
+                  アヒルと鴨のコインロッカー
+                </h1>
+                <p class="opacity-75">
+                  「一緒に本屋を襲わないか。」<br>
+                  一冊の広辞苑から始まる、奇妙で、哀しくて、温かい物語。
+                </p>
+                <p>
+                  <a class="btn btn-lg btn-primary" href="#featurette-3">解説を読む</a>
+                </p>
+              </div>
+              <div class="text-center">
+                <img src="images/ahirutokamo.jpg" alt="アヒルと鴨のコインロッカー 表紙" class="img-fluid"
+                  style="height: 400px; box-shadow: 0 10px 20px rgba(0,0,0,0.5);">
+                <p class="mt-2 mb-0" style="font-size: 0.75rem; color: #ccc;">
+                  伊坂幸太郎『アヒルと鴨のコインロッカー』（東京創元社刊）
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+    <div class="container marketing mt-5">
+
+      <div class="row text-center mb-5" id="charm-points">
+        <div class="col-lg-4">
+          <div class="mb-3" style="font-size: 4rem;">🏙️</div>
+          <h2 class="fw-normal">舞台は「仙台」</h2>
+          <p>多くの作品が作者のゆかりの地である<br>仙台を舞台にしています。実在の地名が登場し、<br>物語と現実が交差する感覚がたまりません。</p>
+        </div>
+        <div class="col-lg-4">
+          <div class="mb-3" style="font-size: 4rem;">🧩</div>
+          <h2 class="fw-normal">鮮やかな伏線回収</h2>
+          <p>序盤の何気ない会話や出来事が、<br>終盤でパズルのピースのようにカチッとハマる爽快感。<br>これが伊坂作品最大の魅力です。</p>
+        </div>
+        <div class="col-lg-4">
+          <div class="mb-3" style="font-size: 4rem;">🤝</div>
+          <h2 class="fw-normal">リンクする世界線</h2>
+          <p>別の作品のキャラクターが、<br>違う小説にひょっこり登場することも。<br>ファンならニヤリとしてしまう仕掛けが満載です。</p>
+        </div>
+      </div>
+
+      <hr class="featurette-divider" id="featurette-1" />
+      <div class="row featurette align-items-center">
+        <div class="col-md-7">
+          <h2 class="featurette-heading fw-normal lh-1">
+            👑 第1位 ゴールデンスランバー
+            <span class="text-body-secondary d-block mt-2 fs-4">逃げろ、生きるために。</span>
+          </h2>
+          <p class="lead mt-4">
+            首相暗殺の濡れ衣を着せられた男の逃亡劇。<br>仙台の街を縦横無尽に駆け巡る、息もつかせぬエンターテインメント！
+          </p>
+          <div id="map1" style="height: 250px;" class="mt-4 w-100 rounded shadow-sm border border-secondary-subtle">
+          </div>
+          <p class="text-muted mt-1" style="font-size: 0.8rem;">📍聖地：仙台駅周辺（逃亡のスタート地点など）</p>
+        </div>
+        <div class="col-md-5 text-center mt-5 pt-md-5">
+          <img src="images/goldenslumber.jpg" alt="ゴールデンスランバー 表紙" class="img-fluid rounded shadow-sm"
+            style="width: 280px; height: 400px; object-fit: cover;">
+          <p class="mt-2 mb-0" style="font-size: 0.75rem; color: #ccc;">
+            伊坂幸太郎『ゴールデンスランバー』（新潮文庫刊）
+          </p>
+        </div>
+      </div>
+
+      <hr class="featurette-divider" id="featurette-2" />
+      <div class="row featurette align-items-center">
+        <div class="col-md-7 order-md-2">
+          <h2 class="featurette-heading fw-normal lh-1">
+            🥈 第2位 砂漠
+            <span class="text-body-secondary d-block mt-2 fs-4">学生時代という名の「砂漠」で。</span>
+          </h2>
+          <p class="lead mt-4">
+            大学に入学した個性豊かな男女5人組が織りなす青春群像劇。<br>モラトリアムな日々の中での少しほろ苦いミステリー。
+          </p>
+          <div id="map2" style="height: 250px;" class="mt-4 w-100 rounded shadow-sm border border-secondary-subtle">
+          </div>
+          <p class="text-muted mt-1" style="font-size: 0.8rem;">📍聖地：東北大学 川内キャンパス周辺（彼らの学生生活の舞台）</p>
+        </div>
+        <div class="col-md-5 order-md-1 text-center mt-5 pt-md-5">
+          <img src="images/sabaku.jpg" alt="砂漠 表紙" class="img-fluid rounded shadow-sm"
+            style="width: 280px; height: 400px; object-fit: cover;">
+          <p class="mt-2 mb-0" style="font-size: 0.75rem; color: #ccc;">
+            伊坂幸太郎『砂漠』（新潮文庫刊）
+          </p>
+        </div>
+      </div>
+
+      <hr class="featurette-divider" id="featurette-3" />
+      <div class="row featurette align-items-center">
+        <div class="col-md-7">
+          <h2 class="featurette-heading fw-normal lh-1">
+            🥉 第3位 アヒルと鴨のコインロッカー
+            <span class="text-body-secondary d-block mt-2 fs-4">「一緒に本屋を襲わないか」</span>
+          </h2>
+          <p class="lead mt-4">
+            「広辞苑を奪うため、本屋を襲撃しよう」と誘われる現在と、2年前の過去。<br>2つの時間が交差した時、切ない真実が浮かび上がる。
+          </p>
+          <div id="map3" style="height: 250px;" class="mt-4 w-100 rounded shadow-sm border border-secondary-subtle">
+          </div>
+          <p class="text-muted mt-1" style="font-size: 0.8rem;">📍聖地：八木山動物公園（物語の鍵を握る重要な場所）</p>
+        </div>
+        <div class="col-md-5 text-center mt-5 pt-md-5">
+          <img src="images/ahirutokamo.jpg" alt="アヒルと鴨のコインロッカー 表紙" class="img-fluid rounded shadow-sm"
+            style="width: 280px; height: 400px; object-fit: cover;">
+          <p class="mt-2 mb-0" style="font-size: 0.75rem; color: #ccc;">
+            伊坂幸太郎『アヒルと鴨のコインロッカー』（東京創元社刊）
+          </p>
+        </div>
+      </div>
+
+      <hr class="featurette-divider" />
+
+      <div class="my-5 py-3">
+        <h2 class="text-center mb-4">その他のオススメ作品</h2>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+          <div class="col">
+            <div class="card h-100 shadow-sm border-secondary-subtle">
+              <div class="card-body">
+                <h5 class="card-title fw-bold">重力ピエロ</h5>
+                <p class="card-text">「春が二階から落ちてきた。」から始まる、<br>兄弟の絆と謎解きの物語。<br>家族の在り方を問う傑作。</p>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card h-100 shadow-sm border-secondary-subtle">
+              <div class="card-body">
+                <h5 class="card-title fw-bold">マリアビートル</h5>
+                <p class="card-text">新幹線という密室で殺し屋たちが<br>交錯するノンストップ・アクション。<br>ハリウッド映画化もされたエンタメ作。</p>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card h-100 shadow-sm border-secondary-subtle">
+              <div class="card-body">
+                <h5 class="card-title fw-bold">オーデュボンの祈り</h5>
+                <p class="card-text">喋るカカシがいる奇妙な島で起こる、デビュー作にして傑作。<br>伊坂ワールドの原点がここに。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="my-5 py-3">
+        <h2 class="text-center mb-4">よくある質問 (Q&A)</h2>
+        <div class="accordion shadow-sm" id="accordionExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button fw-bold collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                Q. どの作品から読むのがおすすめですか？
+              </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                初めての方には、エンタメ性が高く映画化もされた<strong>『ゴールデンスランバー』</strong>や、青春小説として読みやすい<strong>『砂漠』</strong>がおすすめです。
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <footer
+      class="container mt-5 mb-3 pt-4 border-top text-center text-md-start d-md-flex justify-content-between align-items-center">
+      <p class="mb-0 text-muted">&copy;私の好きな伊坂幸太郎の作品 &middot; <strong>学籍番号: 38414097</strong></p>
+      <p class="mb-0 mt-3 mt-md-0"><a href="#" class="text-decoration-none">トップへ戻る</a></p>
+    </footer>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    crossorigin="anonymous"></script>
+
+  <script>
+
+    var map1 = L.map('map1').setView([38.260132, 140.882433], 14);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map1);
+    L.marker([38.260132, 140.882433]).addTo(map1)
+      .bindPopup('<b>ゴールデンスランバー</b><br>逃亡劇の舞台となった仙台駅')
+      .openPopup();
+
+    var map2 = L.map('map2').setView([38.258414, 140.850992], 14);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map2);
+    L.marker([38.258414, 140.850992]).addTo(map2)
+      .bindPopup('<b>砂漠</b><br>彼らが青春を過ごした大学周辺');
+
+    var map3 = L.map('map3').setView([38.244200, 140.843742], 15);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map3);
+    L.marker([38.244200, 140.843742]).addTo(map3)
+      .bindPopup('<b>アヒルと鴨のコインロッカー</b><br>物語の鍵を握る動物園');
+  </script>
+</body>
+
+</html>
